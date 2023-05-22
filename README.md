@@ -1,2 +1,2 @@
-# JavascriptEx
+# JavascriptTest
 ESERCIZIO DI VERIFICA DI JAVASCRIPT
