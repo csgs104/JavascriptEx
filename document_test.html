@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Mars Rover</title>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+        
+        <style> 
+            .table-grid-class{
+                display:auto;
+                width:auto;
+                height:auto;
+                border:auto; 
+            }
+
+            .table-box-class {
+                height:auto;
+                width:auto;
+                line-height:auto;
+                border:auto  
+            }
+              
+            .table-cell-class{
+                display:inline-block;
+                width:auto;
+                height:auto;
+                box-sizing:auto;
+                text-align:center;
+                border:1pt solid black
+            }
+
+            .table-class {
+                display:auto;
+                height:80vw;
+                width:80vw;
+                margin:auto;
+                border:2px solid black; 
+            }
+
+            .space-class {
+                display:auto;
+                height:10px;
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <div>
+            <header>CRUD on Javascript</header>
+        </div>
+
+        <div class="space-class"></div> 
+
+        <div>
+            <header> INSERT SECTION </header>
+            <label> Name: </label>
+            <input class="input-name-insert-class" id="input-name-insert-id" type="text" value="name">
+            <label> Surname: </label>
+            <input class="input-surname-insert-class" id="input-surname-insert-id" type="text" value="surname">
+            <label> Email: </label>
+            <input class="input-email-insert-class" id="input-email-insert-id" type="text" value="your_mail@mail.com">
+            <br>
+            <button title="insert-btn" class="insert-btn-class" id="insert-btn-id"> INSERT </button>
+        </div>
+
+        <div class="space-class"></div>
+
+        <div>
+            <header> UPDATE SECTION </header>
+            <label> Old Name: </label>
+            <input class="input-name-old-class" id="input-name-old-id" type="text" value="name">
+            <label> Old Surname: </label>
+            <input class="input-surname-old-class" id="input-surname-old-id" type="text" value="surname">
+            <label> Old Email: </label>
+            <input class="input-email-old-class" id="input-email-old-id" type="text" value="your_mail@mail.com">
+            <br>
+            <label> New Name: </label>
+            <input class="input-name-new-class" id="input-name-new-id" type="text" value="name">
+            <label> New Surname: </label>
+            <input class="input-surname-new-class" id="input-surname-new-id" type="text" value="surname">
+            <label> New Email: </label>
+            <input class="input-email-new-class" id="input-email-new-id" type="text" value="your_mail@mail.com">
+            <br>
+            <button title="update-btn" class="update-btn-class" id="update-btn-id"> UPDATE </button>
+        </div>
+
+        <div class="space-class"></div>
+
+        <div>
+            <header> DELETE SECTION </header>
+            <label> Name: </label>
+            <input class="input-name-delete-class" id="input-name-delete-id" type="text" value="name">
+            <label> Surname: </label>
+            <input class="input-surname-delete-class" id="input-surname-delete-id" type="text" value="surname">
+            <label> Email: </label>
+            <input class="input-email-delete-class" id="input-email-delete-id" type="text" value="your_mail@mail.com">
+            <br>
+            <button title="delete-btn" class="delete-btn-class" id="delete-btn-id"> DELETE </button>
+        </div>
+
+        <div class="space-class"></div> 
+
+        <div>
+            <header> SEARCH SECTION </header>
+            <label> Name: </label>
+            <input class="input-name-search-class" id="input-name-search-id" type="text" value="name">
+            <label> Surname: </label>
+            <input class="input-surname-search-class" id="input-surname-search-id" type="text" value="surname">
+            <label> Email: </label>
+            <input class="input-email-search-class" id="input-email-search-id" type="text" value="your_mail@mail.com">
+            <br>
+            <button title="search-btn" class="search-btn-class" id="search-btn-id"> SEARCH </button>
+        </div>
+
+        <div class="space-class"></div> 
+
+        <div>
+            <label> Command Result: </label>
+            <output class="result-class" id="result-id"></output>
+        </div>
+
+        <div class="space-class"></div> 
+
+        <div class="table-class" id="table-id"></div> 
+
+        <div class="space-class"></div> 
+
+    </body>
+
+    <script defer> // defer = last to charge
+        const inserting = document.querySelector("#insert-btn-id");
+        const updating = document.querySelector("#update-btn-id");
+        const deleting = document.querySelector("#delete-btn-id");
+        const searching = document.querySelector("#search-btn-id");
+        const table = document.querySelector("#table-id");
+        const result = document.querySelector("#result-id");
+
+        // INSERT, UPDATE, DELETE
+        let currentResult = ""; 
+        // values: INSERT DONE / NOT DONE
+        // values: UPDATE DONE / NOT DONE
+        // values: DELETE DONE / NOT DONE
+        // values: FOUND: name, surname, email / NOT FOUND
+
+        // map-cell-class border
+        const border = 1;
+
+
+        const existcell = (cellName, cellSurname, cellEmail, name, surname, email) => {
+            if (cellName.textContent === name && cellSurname.textContent === surname && cellEmail.textContent === email) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        // griding function: given rows and cols, returns a grid (table with first row)
+        const create = (rows, cols) => {
+            let grid = document.createElement("div");
+            grid.className = "table-grid-class";
+            grid.id = "table-grid-id";
+
+            console.log("table max width: " + table.clientWidth + " & " + "table max height: " + table.clientHeight);
+
+            for (let x = 0; x < rows; x++) {
+                let box = document.createElement("div");
+                box.className = "table-box-class";
+                box.id = "table-box-id-" + x;
+                for (let y = 0; y < cols; y++) {
+                    let cell = document.createElement("div"); 
+                    cell.className = "table-cell-class";
+                    cell.id = "table-cell-id-" + x + "-" + y;
+                    cell.textContent = y === 0 ? x : y === 1 ? "name" : y === 2 ? "surname" : y === 3 ? "your_mail@mail.com" : "ERROR";
+                    cell.style.setProperty("width", (table.clientWidth)/(cols) + "px");
+                    box.appendChild(cell);
+                }
+                box.style.setProperty("line-height", 25 /*(table.clientHeight - border*(rows*2))/(rows)*/ + "px");
+                grid.appendChild(box);
+            }
+            return grid;
+        }
+
+
+        // creating the starting grid
+        let rowsNumber = 1;
+        let colsNumber = 4;
+        let grid = create(rowsNumber, colsNumber);
+        table.appendChild(grid);
+
+        const Correct = "Correct";
+        const NotCorrect = "Not Correct";
+        const testing = (name, surname, email) => {
+            const namesRegex = /^(?!-)[a-zA-Z-]*[a-zA-Z]$/;
+            const emailsRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+            if(!namesRegex.test(name)) { return NotCorrect; }
+            if(!namesRegex.test(surname)) { return NotCorrect; }
+            if(!namesRegex.test(email)) { return NotCorrect; }
+            return Correct;
+        }
+
+
+        const Found = "Not Found";
+        const NotFound = "Not Found";
+        const helping = (name, surname, email) => {
+            console.log("rowsNumber: " + rowsNumber);
+            for (let x = 0; x < rowsNumber; x++) {
+
+                let cellId = grid.querySelector("#table-cell-id-" + x + "-" + 0);
+                let cellName = grid.querySelector("#table-cell-id-" + x + "-" + 1);
+                let cellSurname = grid.querySelector("#table-cell-id-" + x + "-" + 2);
+                let cellEmail = grid.querySelector("#table-cell-id-" + x + "-" + 3);
+                if(existcell(cellName, cellSurname, cellEmail, name, surname, email)) {
+                    console.log("CellId: " + cellId.textContent);
+                    return cellId.textContent;
+                }
+            }
+            return NotFound;
+        }
+
+
+        const searchRow = () => {
+            let inputName = document.querySelector("#input-name-search-id");
+            let inputSurname = document.querySelector("#input-surname-search-id");
+            let inputEmail = document.querySelector("#input-email-search-id");
+            let name = inputName.value;
+            let surname = inputSurname.value;
+            let email = inputEmail.value;
+
+            result.value = "";
+
+            if(testing(name, name, name) === NotCorrect) { result.value = "Wrong Text"; return; }
+
+            let help = helping(name, surname, email);
+            console.log("help: " + help);
+
+            if(help !== NotFound) {
+                let x = Number(help);
+                let cellId = grid.querySelector("#table-cell-id-" + x + "-" + 0);
+                let cellName = grid.querySelector("#table-cell-id-" + x + "-" + 1);
+                let cellSurname = grid.querySelector("#table-cell-id-" + x + "-" + 2);
+                let cellEmail = grid.querySelector("#table-cell-id-" + x + "-" + 3);
+
+                currentResult = "FOUND = " + cellName.textContent + ", " + cellSurname.textContent + ", " + cellEmail.textContent;
+            } else {
+                currentResult = "NOT FOUND";
+            }
+            result.value = currentResult;
+        }
+
+
+        const insertRow = () => {
+            let inputName = document.querySelector("#input-name-insert-id");
+            let inputSurname = document.querySelector("#input-surname-insert-id");
+            let inputEmail = document.querySelector("#input-email-insert-id");
+            let name = inputName.value;
+            let surname = inputSurname.value;
+            let email = inputEmail.value;
+
+            if(testing(name, name, name) === NotCorrect) { result.value = "Wrong Text"; return; }
+
+            result.value = "";
+
+            let help = helping(name, surname, email);
+            console.log("help: " + help);
+
+            if(help === NotFound) {
+
+                rowsNumber = rowsNumber + 1;
+                console.log("rowsNumber: " + rowsNumber);
+
+                let box = document.createElement("div");
+                box.className = "table-box-class";
+                box.id = "table-box-id-" + rowsNumber;
+
+                let x = rowsNumber - 1;
+                for (let y = 0; y < colsNumber; y++) {
+                    let cell = document.createElement("div"); 
+                    cell.className = "table-cell-class";
+                    cell.id = "table-cell-id-" + x + "-" + y;
+                    cell.textContent = y === 0 ? x : y === 1 ? name : y === 2 ? surname : y === 3 ? email : "ERROR";
+                    cell.style.setProperty("width", (table.clientWidth)/(colsNumber) + "px");
+                    box.appendChild(cell);
+                }
+
+                box.style.setProperty("line-height", 25 /*(table.clientHeight - border*(rowsNumber*2))/(rowsNumber)*/ + "px");
+                grid.appendChild(box);
+
+                currentResult = "INSERT DONE";
+            } else {
+                currentResult = "INSERT NOT DONE";
+            }
+            result.value = currentResult;
+        }
+
+
+        const updateRow = () => {
+            let inputNameOld = document.querySelector("#input-name-old-id");
+            let inputSurnameOld = document.querySelector("#input-surname-old-id");
+            let inputEmailOld = document.querySelector("#input-email-old-id");
+            let inputNameNew = document.querySelector("#input-name-new-id");
+            let inputSurnameNew = document.querySelector("#input-surname-new-id");
+            let inputEmailNew = document.querySelector("#input-email-new-id");
+            let nameOld = inputNameOld.value;
+            let surnameOld = inputSurnameOld.value;
+            let emailOld = inputEmailOld.value;
+            let nameNew = inputNameNew.value;
+            let surnameNew = inputSurnameNew.value;
+            let emailNew = inputEmailNew.value;
+
+            result.value = "";
+
+            if(testing(nameNew, emailNew, emailNew) === NotCorrect)  { result.value = "Wrong Text"; return; }
+            if(testing(nameOld, emailOld, emailOld) === NotCorrect)  { result.value = "Wrong Text"; return; }
+
+            let helpOld = helping(nameOld, surnameOld, emailOld);
+            let helpNew = helping(nameNew, surnameNew, emailNew);
+            console.log("helpOld: " + helpOld);
+            console.log("helpNew: " + helpNew);
+            
+            if(helpOld !== NotFound && helpNew === NotFound) {
+
+                let x = Number(helpOld);
+                let cellId = grid.querySelector("#table-cell-id-" + x + "-" + 0);
+                let cellName = grid.querySelector("#table-cell-id-" + x + "-" + 1);
+                let cellSurname = grid.querySelector("#table-cell-id-" + x + "-" + 2);
+                let cellEmail = grid.querySelector("#table-cell-id-" + x + "-" + 3);
+
+                cellName.textContent = nameNew;
+                cellSurname.textContent = surnameNew;
+                cellEmail.textContent = emailOld;
+                
+                currentResult = "UPDATE DONE";
+            } else {
+                currentResult = "UPDATE NOT DONE";
+            }
+            result.value = currentResult;
+        }
+
+
+        const deleteRow = () => {
+            let inputName = document.querySelector("#input-name-delete-id");
+            let inputSurname = document.querySelector("#input-surname-delete-id");
+            let inputEmail = document.querySelector("#input-email-delete-id");
+            let name = inputName.value;
+            let surname = inputSurname.value;
+            let email = inputEmail.value;
+
+            result.value = "";
+
+            if(testing(name, name, name) === NotCorrect) { result.value = "Wrong Text"; return; }
+
+            let help = helping(name, surname, email);
+            console.log("help: " + help);
+
+            if(help !== NotFound) {
+
+                let x = Number(help);
+                let cellId = grid.querySelector("#table-cell-id-" + x + "-" + 0);
+                let cellName = grid.querySelector("#table-cell-id-" + x + "-" + 1);
+                let cellSurname = grid.querySelector("#table-cell-id-" + x + "-" + 2);
+                let cellEmail = grid.querySelector("#table-cell-id-" + x + "-" + 3);
+
+                cellName.textContent = " ";
+                cellSurname.textContent = " ";
+                cellEmail.textContent = " ";
+
+                currentResult = "DELETE DONE";
+            } else {
+                currentResult = "DELETE NOT DONE";
+            }
+            result.value = currentResult;
+        }
+
+
+        // new buttons
+        inserting.addEventListener("click", insertRow);
+        updating.addEventListener("click", updateRow);
+        deleting.addEventListener("click", deleteRow);
+        searching.addEventListener("click", searchRow);
+
+    </script>
+
+</html>
