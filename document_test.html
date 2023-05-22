@@ -236,6 +236,8 @@
             result.value = "";
 
             if(testing(name, name, name) === NotCorrect) { result.value = "Wrong Text"; return; }
+            else { currentResult += "Correct Text"; } 
+
 
             let help = helping(name, surname, email);
             console.log("help: " + help);
@@ -247,11 +249,12 @@
                 let cellSurname = grid.querySelector("#table-cell-id-" + x + "-" + 2);
                 let cellEmail = grid.querySelector("#table-cell-id-" + x + "-" + 3);
 
-                currentResult = "FOUND = " + cellName.textContent + ", " + cellSurname.textContent + ", " + cellEmail.textContent;
+                currentResult += " & FOUND = " + cellName.textContent + ", " + cellSurname.textContent + ", " + cellEmail.textContent;
             } else {
-                currentResult = "NOT FOUND";
+                currentResult = " & NOT FOUND";
             }
             result.value = currentResult;
+            currentResult = "";
         }
 
 
@@ -264,6 +267,7 @@
             let email = inputEmail.value;
 
             if(testing(name, name, name) === NotCorrect) { result.value = "Wrong Text"; return; }
+            else { currentResult += "Correct Text"; } 
 
             result.value = "";
 
@@ -292,11 +296,12 @@
                 box.style.setProperty("line-height", 25 /*(table.clientHeight - border*(rowsNumber*2))/(rowsNumber)*/ + "px");
                 grid.appendChild(box);
 
-                currentResult = "INSERT DONE";
+                currentResult += " & INSERT DONE";
             } else {
-                currentResult = "INSERT NOT DONE";
+                currentResult += " & INSERT NOT DONE";
             }
             result.value = currentResult;
+            currentResult = "";
         }
 
 
@@ -317,13 +322,14 @@
             result.value = "";
 
             if(testing(nameNew, emailNew, emailNew) === NotCorrect)  { result.value = "Wrong Text"; return; }
-            if(testing(nameOld, emailOld, emailOld) === NotCorrect)  { result.value = "Wrong Text"; return; }
+            else if(testing(nameOld, emailOld, emailOld) === NotCorrect)  { result.value = "Wrong Text"; return; }
+            else { currentResult += "Correct Text"; } 
 
             let helpOld = helping(nameOld, surnameOld, emailOld);
             let helpNew = helping(nameNew, surnameNew, emailNew);
             console.log("helpOld: " + helpOld);
             console.log("helpNew: " + helpNew);
-            
+
             if(helpOld !== NotFound && helpNew === NotFound) {
 
                 let x = Number(helpOld);
@@ -336,11 +342,12 @@
                 cellSurname.textContent = surnameNew;
                 cellEmail.textContent = emailOld;
                 
-                currentResult = "UPDATE DONE";
+                currentResult += " & UPDATE DONE";
             } else {
-                currentResult = "UPDATE NOT DONE";
+                currentResult += " & UPDATE NOT DONE";
             }
             result.value = currentResult;
+            result.value = ""; 
         }
 
 
@@ -355,6 +362,7 @@
             result.value = "";
 
             if(testing(name, name, name) === NotCorrect) { result.value = "Wrong Text"; return; }
+            else { currentResult += "Correct Text"; } 
 
             let help = helping(name, surname, email);
             console.log("help: " + help);
@@ -371,11 +379,13 @@
                 cellSurname.textContent = " ";
                 cellEmail.textContent = " ";
 
-                currentResult = "DELETE DONE";
+                currentResult += " & DELETE DONE";
             } else {
-                currentResult = "DELETE NOT DONE";
+                currentResult += " & DELETE NOT DONE";
             }
             result.value = currentResult;
+            currentResult = "";
+            
         }
 
 
