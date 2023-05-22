@@ -65,7 +65,7 @@
             <label> Surname: </label>
             <input class="input-surname-insert-class" id="input-surname-insert-id" type="text" value="surname">
             <label> Email: </label>
-            <input class="input-email-insert-class" id="input-email-insert-id" type="text" value="your_mail@mail.com">
+            <input class="input-email-insert-class" id="input-email-insert-id" type="text" value="your.mail@mail.com">
             <br>
             <button title="insert-btn" class="insert-btn-class" id="insert-btn-id"> INSERT </button>
         </div>
@@ -79,14 +79,14 @@
             <label> Old Surname: </label>
             <input class="input-surname-old-class" id="input-surname-old-id" type="text" value="surname">
             <label> Old Email: </label>
-            <input class="input-email-old-class" id="input-email-old-id" type="text" value="your_mail@mail.com">
+            <input class="input-email-old-class" id="input-email-old-id" type="text" value="your.mail@mail.com">
             <br>
             <label> New Name: </label>
             <input class="input-name-new-class" id="input-name-new-id" type="text" value="name">
             <label> New Surname: </label>
             <input class="input-surname-new-class" id="input-surname-new-id" type="text" value="surname">
             <label> New Email: </label>
-            <input class="input-email-new-class" id="input-email-new-id" type="text" value="your_mail@mail.com">
+            <input class="input-email-new-class" id="input-email-new-id" type="text" value="your.mail@mail.com">
             <br>
             <button title="update-btn" class="update-btn-class" id="update-btn-id"> UPDATE </button>
         </div>
@@ -100,7 +100,7 @@
             <label> Surname: </label>
             <input class="input-surname-delete-class" id="input-surname-delete-id" type="text" value="surname">
             <label> Email: </label>
-            <input class="input-email-delete-class" id="input-email-delete-id" type="text" value="your_mail@mail.com">
+            <input class="input-email-delete-class" id="input-email-delete-id" type="text" value="your.mail@mail.com">
             <br>
             <button title="delete-btn" class="delete-btn-class" id="delete-btn-id"> DELETE </button>
         </div>
@@ -114,7 +114,7 @@
             <label> Surname: </label>
             <input class="input-surname-search-class" id="input-surname-search-id" type="text" value="surname">
             <label> Email: </label>
-            <input class="input-email-search-class" id="input-email-search-id" type="text" value="your_mail@mail.com">
+            <input class="input-email-search-class" id="input-email-search-id" type="text" value="your.mail@mail.com">
             <br>
             <button title="search-btn" class="search-btn-class" id="search-btn-id"> SEARCH </button>
         </div>
@@ -177,7 +177,7 @@
                     let cell = document.createElement("div"); 
                     cell.className = "table-cell-class";
                     cell.id = "table-cell-id-" + x + "-" + y;
-                    cell.textContent = y === 0 ? x : y === 1 ? "name" : y === 2 ? "surname" : y === 3 ? "your_mail@mail.com" : "ERROR";
+                    cell.textContent = y === 0 ? x : y === 1 ? "name" : y === 2 ? "surname" : y === 3 ? "your.mail@mail.com" : "ERROR";
                     cell.style.setProperty("width", (table.clientWidth)/(cols) + "px");
                     box.appendChild(cell);
                 }
@@ -201,7 +201,7 @@
             const emailsRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
             if(!namesRegex.test(name)) { return NotCorrect; }
             if(!namesRegex.test(surname)) { return NotCorrect; }
-            if(!namesRegex.test(email)) { return NotCorrect; }
+            if(!emailsRegex.test(email)) { return NotCorrect; }
             return Correct;
         }
 
@@ -235,7 +235,7 @@
 
             result.value = "";
 
-            if(testing(name, name, name) === NotCorrect) { result.value = "Wrong Text"; return; }
+            if(testing(name, surname, email) === NotCorrect) { result.value = "Wrong Text"; return; }
             else { currentResult += "Correct Text"; } 
 
 
@@ -266,7 +266,7 @@
             let surname = inputSurname.value;
             let email = inputEmail.value;
 
-            if(testing(name, name, name) === NotCorrect) { result.value = "Wrong Text"; return; }
+            if(testing(name, surname, email) === NotCorrect) { result.value = "Wrong Text"; return; }
             else { currentResult += "Correct Text"; } 
 
             result.value = "";
@@ -321,8 +321,8 @@
 
             result.value = "";
 
-            if(testing(nameNew, emailNew, emailNew) === NotCorrect)  { result.value = "Wrong Text"; return; }
-            else if(testing(nameOld, emailOld, emailOld) === NotCorrect)  { result.value = "Wrong Text"; return; }
+            if(testing(nameOld, surnameOld, emailOld) === NotCorrect)  { result.value = "Wrong Text (Old)"; return; }
+            else if(testing(nameNew, surnameNew, emailNew) === NotCorrect)  { result.value = "Wrong Text (New)"; return; }
             else { currentResult += "Correct Text"; } 
 
             let helpOld = helping(nameOld, surnameOld, emailOld);
@@ -361,7 +361,7 @@
 
             result.value = "";
 
-            if(testing(name, name, name) === NotCorrect) { result.value = "Wrong Text"; return; }
+            if(testing(name, surname, email) === NotCorrect) { result.value = "Wrong Text"; return; }
             else { currentResult += "Correct Text"; } 
 
             let help = helping(name, surname, email);
