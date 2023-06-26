@@ -153,7 +153,6 @@
         // map-cell-class border
         const border = 1;
 
-
         const existcell = (cellName, cellSurname, cellEmail, name, surname, email) => {
             if (cellName.textContent === name && cellSurname.textContent === surname && cellEmail.textContent === email) {
                 return true;
@@ -188,7 +187,6 @@
             return grid;
         }
 
-
         // creating the starting grid
         let rowsNumber = 1;
         let colsNumber = 4;
@@ -205,7 +203,6 @@
             if(!emailsRegex.test(email)) { return NotCorrect; }
             return Correct;
         }
-
 
         const Found = "Not Found";
         const NotFound = "Not Found";
@@ -224,7 +221,6 @@
             }
             return NotFound;
         }
-
 
         const searchRow = () => {
             let inputName = document.querySelector("#input-name-search-id");
@@ -257,7 +253,6 @@
             result.value = currentResult;
             currentResult = "";
         }
-
 
         const insertRow = () => {
             let inputName = document.querySelector("#input-name-insert-id");
@@ -305,7 +300,6 @@
             currentResult = "";
         }
 
-
         const updateRow = () => {
             let inputNameOld = document.querySelector("#input-name-old-id");
             let inputSurnameOld = document.querySelector("#input-surname-old-id");
@@ -351,7 +345,6 @@
             result.value = ""; 
         }
 
-
         const deleteRow = () => {
             let inputName = document.querySelector("#input-name-delete-id");
             let inputSurname = document.querySelector("#input-surname-delete-id");
@@ -388,7 +381,6 @@
             currentResult = "";
             
         }
-
 
         // new buttons
         inserting.addEventListener("click", insertRow);
