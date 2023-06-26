@@ -60,6 +60,7 @@
 
         <div>
             <header> INSERT SECTION </header>
+
             <label> Name: </label>
             <input class="input-name-insert-class" id="input-name-insert-id" type="text" value="name">
             <label> Surname: </label>
@@ -251,7 +252,7 @@
 
                 currentResult += " & FOUND = " + cellName.textContent + ", " + cellSurname.textContent + ", " + cellEmail.textContent;
             } else {
-                currentResult = " & NOT FOUND";
+                currentResult += " & NOT FOUND";
             }
             result.value = currentResult;
             currentResult = "";
